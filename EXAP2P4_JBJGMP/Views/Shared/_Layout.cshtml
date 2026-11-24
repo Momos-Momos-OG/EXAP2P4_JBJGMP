@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MOMOS.ai</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/EXAP2P4_JBJGMP.styles.css" asp-append-version="true" />
+</head>
+<body class="momos-body">
+    <header class="momos-topbar">
+        <div class="container momos-topbar-inner">
+            <a class="momos-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <svg class="momos-logo-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <rect x="2" y="2" width="20" height="20" rx="6" fill="currentColor" opacity="0.18"></rect>
+                    <path d="M7 16V8l5 4.5L17 8v8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                <span>MOMOS<span class="momos-brand-accent">.ai</span></span>
+            </a>
+            <span class="momos-topbar-badge">Groq Cloud</span>
+        </div>
+    </header>
+
+    <main role="main" class="momos-main container">
+        @RenderBody()
+    </main>
+
+    <footer class="momos-footer">
+        <div class="container text-center">
+            &copy; 2026 MOMOS.ai
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

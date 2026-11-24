@@ -1,0 +1,62 @@
+/* Estilos base de layout para MOMOS.ai */
+
+.momos-topbar {
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+  padding: 0.75rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+
+.momos-topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 920px;
+}
+
+.momos-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #f8fafc;
+  text-decoration: none;
+}
+
+.momos-brand:hover {
+  color: #ffffff;
+}
+
+.momos-brand-accent {
+  color: #38bdf8;
+}
+
+.momos-logo-icon {
+  width: 1.75rem;
+  height: 1.75rem;
+  color: #818cf8;
+  flex-shrink: 0;
+}
+
+.momos-topbar-badge {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #cbd5e1;
+  background-color: #1e293b;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 999px;
+  padding: 0.25rem 0.7rem;
+}
+
+.momos-footer {
+  border-top: 1px solid rgba(148, 163, 184, 0.14);
+  padding: 0.7rem 0;
+  color: #94a3b8;
+  font-size: 0.82rem;
+}

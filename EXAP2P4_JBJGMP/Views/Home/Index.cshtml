@@ -1,0 +1,91 @@
+@model GroqChatbotMvc.Models.ChatViewModel
+@{
+    ViewData["Title"] = "Asistente IA";
+}
+
+<section class="chat-wrapper" aria-labelledby="chatHeading">
+    <div class="chat-header d-flex justify-content-between align-items-center">
+        <div>
+            <h1 id="chatHeading" class="chat-title">MOMOS<span class="chat-title-accent">.ai</span></h1>
+            <div class="chat-meta">
+                <span class="meta-pill">Modelo: @Model.ModeloActivo</span>
+                <span class="meta-pill">Tokens última respuesta: @Model.UltimosTokens</span>
+            </div>
+        </div>
+        <form asp-action="NuevoChat" method="post" class="m-0">
+            <button type="submit" class="btn btn-nuevo-chat">Nuevo Chat</button>
+        </form>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.Error))
+    {
+        <div class="chat-error" role="alert"><strong>Aviso:</strong> @Model.Error</div>
+    }
+
+    <div class="chat-box" id="chatBox">
+        @if (!Model.MensajesVisibles.Any())
+        {
+            <div class="chat-empty">
+                <div class="chat-empty-mark" aria-hidden="true">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                </div>
+                <h2>¿En qué puedo ayudarte hoy?</h2>
+                <p>Escribe tu pregunta abajo para conversar con MOMOS.ai.</p>
+            </div>
+        }
+        else
+        {
+            @foreach (var msg in Model.MensajesVisibles)
+            {
+                bool esUsuario = msg.Role == "user";
+                <div class="msg-bubble @(esUsuario ? "msg-user" : "msg-assistant")">
+                    <div class="msg-role">@(esUsuario ? "Tú" : "MOMOS AI")</div>
+                    @if (esUsuario)
+                    {
+                        <div>@msg.Content</div>
+                    }
+                    else
+                    {
+                        <div class="md-render">@msg.Content</div>
+                    }
+                </div>
+            }
+        }
+    </div>
+
+    <div class="chat-input-bar">
+        <form asp-action="Enviar" method="post" class="d-flex gap-2 align-items-center" id="chatForm">
+            <label for="mensajeUsuario" class="visually-hidden">Escribe tu mensaje para MOMOS.ai</label>
+            <input id="mensajeUsuario" type="text" name="mensajeUsuario" class="form-control chat-input"
+                   placeholder="Escribe tu mensaje aquí..." autocomplete="off" required autofocus />
+            <button type="submit" id="btnEnviar" class="btn chat-send-btn">Enviar</button>
+        </form>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+    if (typeof marked !== "undefined") {
+        document.querySelectorAll(".md-render").forEach(el => {
+            el.innerHTML = marked.parse(el.textContent ?? "", { gfm: true, breaks: true });
+            el.classList.add("md-parsed");
+        });
+    }
+
+    const chatBox = document.getElementById("chatBox");
+    if (chatBox) {
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    const chatForm = document.getElementById("chatForm");
+    const btnEnviar = document.getElementById("btnEnviar");
+    if (chatForm && btnEnviar) {
+        chatForm.addEventListener("submit", () => {
+            btnEnviar.textContent = "Pensando...";
+            btnEnviar.setAttribute("aria-disabled", "true");
+            btnEnviar.classList.add("is-loading");
+        });
+    }
+</script>
